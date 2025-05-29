@@ -1,0 +1,108 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import authService from "../../services/authService";
+
+interface FormData {
+  name?: string;
+  email: string;
+  password: string;
+}
+
+export default function AuthForm() {
+  const [isLogin, setIsLogin] = useState(true);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      setError("");
+      const response = isLogin
+        ? await authService.login(data.email, data.password)
+        : await authService.register(data as Required<FormData>);
+
+      localStorage.setItem("token", response.token);
+      navigate("/dashboard");
+    } catch (err) {
+      setError("Falha na autenticação. Verifique suas credenciais.");
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-vscode-dark-900 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          {isLogin ? "Login" : "Registro"}
+        </h2>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {!isLogin && (
+            <div>
+              <input
+                {...register("name", { required: !isLogin })}
+                type="text"
+                placeholder="Nome"
+                className="w-full p-3 rounded bg-vscode-dark-800 border border-vscode-dark-700 focus:outline-none focus:border-blue-500"
+              />
+              {errors.name && (
+                <span className="text-red-500 text-sm">Nome é obrigatório</span>
+              )}
+            </div>
+          )}
+
+          <div>
+            <input
+              {...register("email", { required: true })}
+              type="email"
+              placeholder="Email"
+              className="w-full p-3 rounded bg-vscode-dark-800 border border-vscode-dark-700 focus:outline-none focus:border-blue-500"
+            />
+            {errors.email && (
+              <span className="text-red-500 text-sm">Email é obrigatório</span>
+            )}
+          </div>
+
+          <div>
+            <input
+              {...register("password", { required: true })}
+              type="password"
+              placeholder="Senha"
+              className="w-full p-3 rounded bg-vscode-dark-800 border border-vscode-dark-700 focus:outline-none focus:border-blue-500"
+            />
+            {errors.password && (
+              <span className="text-red-500 text-sm">Senha é obrigatória</span>
+            )}
+          </div>
+
+          {error && (
+            <div className="text-red-500 text-sm text-center">{error}</div>
+          )}
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded transition duration-200"
+          >
+            {isLogin ? "Entrar" : "Registrar"}
+          </button>
+
+          <div className="text-center mt-4">
+            <button
+              type="button"
+              onClick={() => setIsLogin(!isLogin)}
+              className="text-blue-400 hover:text-blue-500"
+            >
+              {isLogin
+                ? "Não tem uma conta? Registre-se"
+                : "Já tem uma conta? Entre"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
