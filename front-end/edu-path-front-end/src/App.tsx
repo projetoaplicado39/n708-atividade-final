@@ -3,6 +3,7 @@ import "./App.css";
 import AuthForm from "./components/Auth/AuthForm";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<AuthForm />} />
+            <Route path="/profile" element={<Profile />} />
             {/* Outras rotas serão adicionadas aqui posteriormente */}
           </Routes>
         </main>
