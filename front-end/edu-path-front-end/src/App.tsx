@@ -3,6 +3,8 @@ import "./App.css";
 import AuthForm from "./components/Auth/AuthForm";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import CourseList from "./pages/Courses/CourseList";
+import CourseDetail from "./pages/Courses/CourseDetail";
 import Profile from "./pages/Profile/Profile";
 import RoadmapList from "./pages/Roadmaps/RoadmapList";
 import RoadmapDetail from "./pages/Roadmaps/RoadmapDetail";
@@ -18,6 +20,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/roadmaps" element={<RoadmapList />} />
             <Route path="/roadmaps/:id" element={<RoadmapDetail />} />
+            <Route path="/courses" element={<CourseList />} />
+            <Route path="/courses/:id" element={<CourseDetail />} />
             {/* Outras rotas serão adicionadas aqui posteriormente */}
           </Routes>
         </main>
