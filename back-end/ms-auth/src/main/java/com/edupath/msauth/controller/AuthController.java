@@ -1,5 +1,6 @@
 package com.edupath.msauth.controller;
 
+import com.edupath.msauth.event.publisher.UserEventPublisher;
 import com.edupath.msauth.exception.TokenRefreshException;
 import com.edupath.msauth.model.RefreshToken;
 import com.edupath.msauth.model.Role;
@@ -48,6 +49,14 @@ public class AuthController {
 
     @Autowired
     private RefreshTokenService refreshTokenService;
+
+    @Autowired
+    private UserEventPublisher userEventPublisher;
+
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        return ResponseEntity.ok("Auth OK!");
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -108,6 +117,7 @@ public class AuthController {
 
         user.setRoles(roles);
         userRepository.save(user);
+        userEventPublisher.publishUserCreated(user.getId(), user.getUsername());
 
         return ResponseEntity.ok(new MessageResponse("Usuário registrado com sucesso!"));
     }
