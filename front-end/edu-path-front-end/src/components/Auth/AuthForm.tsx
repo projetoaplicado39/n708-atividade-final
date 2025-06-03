@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import authService from "../../services/authService";
 
 interface FormData {
-  name?: string;
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -23,11 +22,11 @@ export default function AuthForm() {
     try {
       setError("");
       const response = isLogin
-        ? await authService.login(data.email, data.password)
-        : await authService.register(data as Required<FormData>);
+        ? await authService.login(data.username, data.password)
+        : await authService.register(data);
 
       localStorage.setItem("token", response.token);
-      navigate("/dashboard");
+      navigate("/courses");
     } catch (err) {
       setError("Falha na autenticação. Verifique suas credenciais.");
     }
@@ -41,41 +40,43 @@ export default function AuthForm() {
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {!isLogin && (
-            <div>
-              <input
-                {...register("name", { required: !isLogin })}
-                type="text"
-                placeholder="Nome"
-                className="w-full p-3 rounded bg-vscode-dark-800 border border-vscode-dark-700 focus:outline-none focus:border-blue-500"
-              />
-              {errors.name && (
-                <span className="text-red-500 text-sm">Nome é obrigatório</span>
-              )}
-            </div>
-          )}
-
           <div>
             <input
-              {...register("email", { required: true })}
-              type="email"
-              placeholder="Email"
+              {...register("username", {
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: "Username deve ter pelo menos 3 caracteres",
+                },
+              })}
+              type="text"
+              placeholder="Username"
               className="w-full p-3 rounded bg-vscode-dark-800 border border-vscode-dark-700 focus:outline-none focus:border-blue-500"
             />
-            {errors.email && (
-              <span className="text-red-500 text-sm">Email é obrigatório</span>
+            {errors.username && (
+              <span className="text-red-500 text-sm">
+                {errors.username.message || "Username é obrigatório"}
+              </span>
             )}
           </div>
 
           <div>
             <input
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: true,
+                minLength: {
+                  value: 6,
+                  message: "Senha deve ter pelo menos 6 caracteres",
+                },
+              })}
               type="password"
               placeholder="Senha"
               className="w-full p-3 rounded bg-vscode-dark-800 border border-vscode-dark-700 focus:outline-none focus:border-blue-500"
             />
             {errors.password && (
-              <span className="text-red-500 text-sm">Senha é obrigatória</span>
+              <span className="text-red-500 text-sm">
+                {errors.password.message || "Senha é obrigatória"}
+              </span>
             )}
           </div>
 

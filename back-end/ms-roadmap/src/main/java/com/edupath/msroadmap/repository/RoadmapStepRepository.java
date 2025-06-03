@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface RoadmapStepRepository extends MongoRepository<RoadmapStep, String> {
     List<RoadmapStep> findByRoadmapIdOrderByOrderIndexAsc(String roadmapId);
+
+    List<RoadmapStep> findByRoadmapId(String roadmapId);
 }

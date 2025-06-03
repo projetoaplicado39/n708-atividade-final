@@ -1,30 +1,19 @@
-package com.edupath.mscourse.model;
+package com.edupath.msroadmap.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class CourseDTO {
 
-import java.util.List;
-
-@Document(collection = "courses")
-public class Course {
-
-    @Id
     private String id;
-
     private String title;
     private String description;
     private String url;
     private String provider;
     private String duration;
+    private String difficultyLevel;
 
-    private DifficultyLevel difficultyLevel;
-
-    private List<String> stepIds;
-
-    public Course() {
+    public CourseDTO() {
     }
 
-    public Course(String id, String title, String description, String url, String provider, String duration, DifficultyLevel difficultyLevel, List<String> stepIds) {
+    public CourseDTO(String id, String title, String description, String url, String provider, String duration, String difficultyLevel) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -32,7 +21,6 @@ public class Course {
         this.provider = provider;
         this.duration = duration;
         this.difficultyLevel = difficultyLevel;
-        this.stepIds = stepIds;
     }
 
     public String getId() {
@@ -83,19 +71,11 @@ public class Course {
         this.duration = duration;
     }
 
-    public DifficultyLevel getDifficultyLevel() {
+    public String getDifficultyLevel() {
         return difficultyLevel;
     }
 
-    public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
+    public void setDifficultyLevel(String difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
-    }
-
-    public List<String> getStepIds() {
-        return stepIds;
-    }
-
-    public void setStepIds(List<String> stepIds) {
-        this.stepIds = stepIds;
     }
 }

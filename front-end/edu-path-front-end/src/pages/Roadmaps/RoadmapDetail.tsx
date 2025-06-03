@@ -83,7 +83,11 @@ export default function RoadmapDetail() {
         </div>
       </div>
 
-      <RoadmapStepList steps={steps} onStepComplete={handleStepComplete} />
+      <RoadmapStepList
+        roadmapId={roadmap.id}
+        steps={steps}
+        onStepComplete={handleStepComplete}
+      />
     </div>
   );
 }

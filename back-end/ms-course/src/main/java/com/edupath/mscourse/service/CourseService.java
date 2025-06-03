@@ -10,25 +10,29 @@ import java.util.Optional;
 @Service
 public class CourseService {
 
-    private final CourseRepository repository;
+    private final CourseRepository courseRepository;
 
-    public CourseService(CourseRepository repository) {
-        this.repository = repository;
+    public CourseService(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
     }
 
     public List<Course> findAll() {
-        return repository.findAll();
+        return courseRepository.findAll();
     }
 
     public Optional<Course> findById(String id) {
-        return repository.findById(id);
+        return courseRepository.findById(id);
     }
 
     public Course save(Course course) {
-        return repository.save(course);
+        return courseRepository.save(course);
     }
 
     public void delete(String id) {
-        repository.deleteById(id);
+        courseRepository.deleteById(id);
+    }
+
+    public List<Course> findByStepId(String stepId) {
+        return courseRepository.findByStepIdsContains(stepId);
     }
 }

@@ -1,30 +1,21 @@
-package com.edupath.mscourse.model;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.edupath.mscourse.dto;
 
 import java.util.List;
 
-@Document(collection = "courses")
-public class Course {
-
-    @Id
+public class CourseDTO {
     private String id;
-
     private String title;
     private String description;
     private String url;
     private String provider;
     private String duration;
-
-    private DifficultyLevel difficultyLevel;
-
+    private String difficultyLevel;
     private List<String> stepIds;
 
-    public Course() {
+    public CourseDTO() {
     }
 
-    public Course(String id, String title, String description, String url, String provider, String duration, DifficultyLevel difficultyLevel, List<String> stepIds) {
+    public CourseDTO(String id, String title, String description, String url, String provider, String duration, String difficultyLevel, List<String> stepIds) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -83,11 +74,11 @@ public class Course {
         this.duration = duration;
     }
 
-    public DifficultyLevel getDifficultyLevel() {
+    public String getDifficultyLevel() {
         return difficultyLevel;
     }
 
-    public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
+    public void setDifficultyLevel(String difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
     }
 
