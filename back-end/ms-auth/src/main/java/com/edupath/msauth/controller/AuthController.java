@@ -119,7 +119,7 @@ public class AuthController {
         userRepository.save(user);
         userEventPublisher.publishUserCreated(user.getId(), user.getUsername());
 
-        return ResponseEntity.ok(new MessageResponse("Usuário registrado com sucesso!"));
+        return ResponseEntity.ok(new MessageResponse("Usuário registrado com sucesso!", user.getId(), user.getUsername()));
     }
 
     @PostMapping("/refreshtoken")

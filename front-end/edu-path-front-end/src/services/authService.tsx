@@ -10,7 +10,13 @@ const authService = {
         password,
       });
 
-      const { token, refreshToken } = response.data;
+      const { token, refreshToken, userId, id } = response.data;
+      const resolvedUserId = userId || id;
+
+      if (resolvedUserId) {
+        localStorage.setItem("userId", resolvedUserId);
+      }
+
       localStorage.setItem("token", token);
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("user", JSON.stringify(response.data));
@@ -21,12 +27,39 @@ const authService = {
     }
   },
 
-  register: async (data: { username: string; password: string }) => {
+  register: async (data: {
+    username: string;
+    email: string;
+    password: string;
+  }) => {
     try {
       const response = await axios.post(`${API_URL}/signup`, data);
-      return response.data;
-    } catch (error) {
-      throw new Error("Falha ao realizar registro");
+
+      const { userId, id } = response.data;
+      const resolvedUserId = userId || id;
+
+      if (resolvedUserId) {
+        localStorage.setItem("userId", resolvedUserId);
+      }
+
+      return {
+        success: true,
+        data: response.data,
+        message: "Registro realizado com sucesso!",
+      };
+    } catch (error: any) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        return { success: false, message: error.response.data.message };
+      }
+
+      return {
+        success: false,
+        message: "Falha ao realizar registro. Tente novamente.",
+      };
     }
   },
 
@@ -34,6 +67,7 @@ const authService = {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
+    localStorage.removeItem("userId");
   },
 
   getCurrentUser: () => {

@@ -199,7 +199,9 @@ edupath/
   - `GET /api/v1/courses`
   - `GET /api/v1/roadmaps`
 
-> Inclua prints das respostas ou exporte a coleção Postman.
+![Registro de Requisição no Postman 1](./assets/registro5.jpg)
+
+![Registro de Requisição no Postman 2](./assets/registro6.jpg)
 
 ### 3. Registro de Apresentação Virtual
 

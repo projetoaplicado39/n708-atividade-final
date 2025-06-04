@@ -20,6 +20,12 @@ export function Header() {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
+              to="/login"
+              className="text-primary-800 dark:text-primary-200 hover:text-primary-600 dark:hover:text-primary-400"
+            >
+              Login
+            </Link>
+            <Link
               to="/courses"
               className="text-primary-800 dark:text-primary-200 hover:text-primary-600 dark:hover:text-primary-400"
             >

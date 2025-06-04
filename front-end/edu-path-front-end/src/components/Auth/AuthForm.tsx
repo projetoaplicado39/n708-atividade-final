@@ -5,6 +5,7 @@ import authService from "../../services/authService";
 
 interface FormData {
   username: string;
+  email?: string;
   password: string;
 }
 
@@ -23,10 +24,14 @@ export default function AuthForm() {
       setError("");
       const response = isLogin
         ? await authService.login(data.username, data.password)
-        : await authService.register(data);
+        : await authService.register({
+            username: data.username,
+            email: data.email ?? "",
+            password: data.password,
+          });
 
       localStorage.setItem("token", response.token);
-      navigate("/courses");
+      navigate("/profile");
     } catch (err) {
       setError("Falha na autenticação. Verifique suas credenciais.");
     }
@@ -59,7 +64,27 @@ export default function AuthForm() {
               </span>
             )}
           </div>
-
+          {!isLogin && (
+            <div>
+              <input
+                {...register("email", {
+                  required: "Email é obrigatório",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Email inválido",
+                  },
+                })}
+                type="email"
+                placeholder="Email"
+                className="w-full p-3 rounded bg-vscode-dark-800 border border-vscode-dark-700 focus:outline-none focus:border-blue-500"
+              />
+              {errors.email && (
+                <span className="text-red-500 text-sm">
+                  {errors.email.message}
+                </span>
+              )}
+            </div>
+          )}
           <div>
             <input
               {...register("password", {

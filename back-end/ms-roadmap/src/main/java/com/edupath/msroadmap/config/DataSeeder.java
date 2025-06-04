@@ -22,11 +22,11 @@ public class DataSeeder implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (roadmapRepository.count() == 0) {
             roadmapRepository.saveAll(List.of(
-                    new Roadmap(null, "Lógica de Programação", "Aprenda os fundamentos da lógica de programação.", InterestArea.BASE, ExperienceLevel.BEGINNER),
-                    new Roadmap(null, "Desenvolvimento Front-End", "Construa interfaces web com HTML, CSS e JavaScript.", InterestArea.FRONTEND, ExperienceLevel.BEGINNER),
-                    new Roadmap(null, "Desenvolvimento Back-End", "Crie APIs e sistemas robustos no servidor.", InterestArea.BACKEND, ExperienceLevel.BEGINNER),
-                    new Roadmap(null, "Desenvolvimento Mobile", "Desenvolva aplicativos móveis para Android e iOS.", InterestArea.MOBILE, ExperienceLevel.BEGINNER),
-                    new Roadmap(null, "DevOps", "Automatize e integre processos de desenvolvimento e operações.", InterestArea.DEVOPS, ExperienceLevel.BEGINNER)
+                    new Roadmap("683cad5cd95ded76dcc10682", "Lógica de Programação", "Aprenda os fundamentos da lógica de programação.", InterestArea.BASE, ExperienceLevel.BEGINNER),
+                    new Roadmap("683cad5cd95ded76dcc10683", "Desenvolvimento Front-End", "Construa interfaces web com HTML, CSS e JavaScript.", InterestArea.FRONTEND, ExperienceLevel.BEGINNER),
+                    new Roadmap("683cad5cd95ded76dcc10684", "Desenvolvimento Back-End", "Crie APIs e sistemas robustos no servidor.", InterestArea.BACKEND, ExperienceLevel.BEGINNER),
+                    new Roadmap("683cad5cd95ded76dcc10685", "Desenvolvimento Mobile", "Desenvolva aplicativos móveis para Android e iOS.", InterestArea.MOBILE, ExperienceLevel.BEGINNER),
+                    new Roadmap("683cad5cd95ded76dcc10686", "DevOps", "Automatize e integre processos de desenvolvimento e operações.", InterestArea.DEVOPS, ExperienceLevel.BEGINNER)
             ));
             System.out.println(">>> Roadmaps inseridos com sucesso!");
         }

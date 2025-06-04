@@ -1,4 +1,5 @@
 services:
+  # Message Broker
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -13,6 +14,7 @@ services:
     networks:
       - microservices-network
 
+  # Microserviços
   ms-auth:
     build: ./back-end/ms-auth
     container_name: ms-auth

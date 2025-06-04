@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import type { UserProfile } from "../../types/user";
 import ProfileForm from "../../components/Profile/ProfileForm";
-import { getUserProfile, updateUserProfile } from "../../services/userService";
+import {
+  getCurrentUserProfile,
+  updateUserProfileById,
+} from "../../services/userService";
 
 export default function Profile() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -15,8 +18,12 @@ export default function Profile() {
   const loadProfile = async () => {
     try {
       setIsLoading(true);
-      const data = await getUserProfile();
-      setProfile(data);
+      const data = await getCurrentUserProfile();
+      if (data) {
+        setProfile(data);
+      } else {
+        setError("Perfil não encontrado.");
+      }
     } catch (err) {
       setError("Erro ao carregar perfil. Tente novamente mais tarde.");
     } finally {
@@ -26,9 +33,13 @@ export default function Profile() {
 
   const handleUpdateProfile = async (data: UserProfile) => {
     try {
-      const updatedProfile = await updateUserProfile(data);
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        setError("Usuário não autenticado.");
+        return;
+      }
+      const updatedProfile = await updateUserProfileById(userId, data);
       setProfile(updatedProfile);
-      // Você pode adicionar um toast/notificação aqui
       alert("Perfil atualizado com sucesso!");
     } catch (err) {
       setError("Erro ao atualizar perfil. Tente novamente mais tarde.");

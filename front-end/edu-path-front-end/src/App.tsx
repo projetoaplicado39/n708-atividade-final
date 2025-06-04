@@ -16,7 +16,8 @@ function App() {
         <Header />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<AuthForm />} />
+            <Route path="/" element={<RoadmapList />} />
+            <Route path="/login" element={<AuthForm />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/roadmaps" element={<RoadmapList />} />
             <Route path="/roadmaps/:id" element={<RoadmapDetail />} />
