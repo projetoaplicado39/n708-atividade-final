@@ -143,13 +143,13 @@ edupath/
 1. **Clone o repositório**
 
    ```sh
-   git clone <url-do-repositorio>
-   cd edupath
+   git clone https://github.com/projetoaplicado39/n708-atividade-final.git
+   cd n708-atividade-final
    ```
 
 2. **Configuração de variáveis de ambiente**
 
-   - Ajuste as URIs do MongoDB e segredos JWT nos Dockerfiles ou `.env` se necessário.
+   - As variáveis de ambiente já estão configuradas para o projeto.
 
 3. **Suba os serviços**
 
@@ -157,25 +157,17 @@ edupath/
    docker-compose up --build
    ```
 
-4. **Acesse o frontend**
+4. **Rode o frontend**
+
+   ```sh
+   cd front-end/edu-path-front-end
+   npm install
+   npm run dev
+   ```
+
+5. **Acesse o frontend**
 
    - O frontend estará disponível em [http://localhost:5173](http://localhost:5173)
-
-5. **Execução manual (opcional)**
-
-   - Para rodar cada microserviço separadamente:
-     ```sh
-     cd back-end/ms-auth
-     ./mvnw clean package
-     java -jar target/ms-auth-0.0.1-SNAPSHOT.jar
-     # Repita para ms-user, ms-roadmap, ms-course
-     ```
-   - Para rodar o frontend localmente:
-     ```sh
-     cd front-end/edu-path-front-end
-     npm install
-     npm run dev
-     ```
 
 ---
 
@@ -188,7 +180,9 @@ edupath/
 - **Página de Roadmaps:** Visualização de trilhas de aprendizado.
 - **Perfil do Usuário:** Visualização e edição de dados do usuário.
 
-> Inclua aqui capturas de tela das principais páginas do sistema.
+![Registro da Página de Roadmap](./assets/registro7.jpg)
+
+![Registro da Página de Cursos](./assets/registro8.jpg)
 
 ### 2. Requisições no Postman
 
